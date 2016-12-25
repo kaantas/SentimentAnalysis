@@ -1,4 +1,4 @@
-function [ IGTable, sortedIGTable ] = calculateIG( )
+function [ IGTable ] = calculateIG( )
 %P(positive)=1/2
 %P(negative)=1/2
 %P(word)=>from function
@@ -73,8 +73,8 @@ for i=1:3000 %3000 toplam kelime sayýsý
 end
 
 %kelimeleri tf-idf deðerleri toplamý en büyükten en küçüðe sýrala
-sortedIGTable = sortrows(IGTable,-2);
+IGTable = sortrows(IGTable,-2);
 
 %ilk 500'i al
-sortedIGTable = sortedIGTable(1:500,:);
+IGTable = IGTable(1:500,:);
 end
