@@ -1,7 +1,9 @@
-function [resultTFIDF, resultDFmap] = indexer()
+function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative] = indexer()
     trainingFile = fopen('training.txt','r');
     df_map = containers.Map('KeyType','char','ValueType','int32');  
     tf_map = containers.Map('KeyType','char','ValueType','any');
+    df_positive = containers.Map('KeyType','char','ValueType','int32');
+    df_negative = containers.Map('KeyType','char','ValueType','int32');
     
     line = fgetl(trainingFile); %her line bir yorum
     line_count=1;  
@@ -38,7 +40,31 @@ function [resultTFIDF, resultDFmap] = indexer()
                         df_map(word) = val + 1;
                     else    
                         df_map(word) = 1;
-                    end   
+                    end
+                    
+                    %her bir kelimenin positive classýna göre df'ini
+                    %hesaplýyoruz
+                    %bu df deðeri df_positive'de tutuluyor.
+                    %bu deðerler information gain hesaplarken yardýmcý
+                    %olacak
+                    if line_count<512
+                        if df_positive.isKey(word)   % o ara df i de aradan çýkaralým
+                        val = df_positive(word);
+                        df_positive(word) = val + 1;
+                        else    
+                        df_positive(word) = 1;
+                        end
+                    %her bir kelimenin negative classýna göre df'ini
+                    %hesaplýyoruz
+                    %bu df deðeri df_negative'de tutuluyor.
+                    else
+                        if df_negative.isKey(word)   % o ara df i de aradan çýkaralým
+                        val = df_negative(word);
+                        df_negative(word) = val + 1;
+                        else    
+                        df_negative(word) = 1;
+                        end
+                    end
                 else
                     val = tmp(word);
                     tmp(word) = val + 1; 
@@ -93,4 +119,6 @@ function [resultTFIDF, resultDFmap] = indexer()
     fclose(trainingFile);
     resultTFIDF = tf_cell;
     resultDFmap = df_map;
+    resultDFpositive = df_positive;
+    resultDFnegative = df_negative;
 end

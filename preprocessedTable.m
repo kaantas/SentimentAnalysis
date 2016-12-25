@@ -1,8 +1,8 @@
 function [ weightedTable ] = preprocessedTable( )
-[tfidfTable,x]=indexer();
+[tfidfTable,x,y,z]=indexer();
 weightedTable = tfidfTable;
 
-%her bir kelimenin tf-idf deðerleri toplamý weightedTable'in 732. sütununa
+%her bir kelimenin tf-idf deðerleri toplamý weightedTable'in 1024. sütununa
 %yerleþtiriliyor.
 for i=1:4956
    sum=0;
@@ -19,7 +19,7 @@ end
 %kelimeleri tf-idf deðerleri toplamý en büyükten en küçüðe sýrala
 weightedTable = sortrows(weightedTable,-1024);
 
-%ilk 2000'i al
-weightedTable = weightedTable(1:2000,:);
+%ilk 3000'i al
+weightedTable = weightedTable(1:3000,:);
 end
 
