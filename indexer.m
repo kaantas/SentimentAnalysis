@@ -1,10 +1,13 @@
-function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative] = indexer()
+function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count] = indexer()
     trainingFile = fopen('training.txt','r');
     df_map = containers.Map('KeyType','char','ValueType','int32');  
     tf_map = containers.Map('KeyType','char','ValueType','any');
     df_positive = containers.Map('KeyType','char','ValueType','int32');
     df_negative = containers.Map('KeyType','char','ValueType','int32');
-    
+    termCountInPos_map = containers.Map('KeyType','char','ValueType','int32');
+    termCountInNeg_map = containers.Map('KeyType','char','ValueType','int32');
+    pos_word_count=0;
+    neg_word_count=0;
     line = fgetl(trainingFile); %her line bir yorum
     line_count=1;  
     %positive.txt dosyasýndan kelimeler line olarak alýnýyor.
@@ -48,21 +51,39 @@ function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative] = indexe
                     %bu deðerler information gain hesaplarken yardýmcý
                     %olacak
                     if line_count<512
+                         pos_word_count=pos_word_count+1; %pozitif dökümanda geçen toplam kelime sayýsý
+                        
                         if df_positive.isKey(word)   % o ara df i de aradan çýkaralým
-                        val = df_positive(word);
-                        df_positive(word) = val + 1;
+                            val = df_positive(word);
+                            df_positive(word) = val + 1;
                         else    
-                        df_positive(word) = 1;
+                            df_positive(word) = 1;
+                        end
+                        
+                        if ~termCountInPos_map.isKey(word)
+                            termCountInPos_map(word)=1;
+                        else
+                            val = termCountInPos_map(word);
+                            termCountInPos_map(word)=val+1;
                         end
                     %her bir kelimenin negative classýna göre df'ini
                     %hesaplýyoruz
                     %bu df deðeri df_negative'de tutuluyor.
                     else
+                        neg_word_count=neg_word_count+1; %negatif dökümanda geçen toplam kelime sayýsý
+                        
                         if df_negative.isKey(word)   % o ara df i de aradan çýkaralým
                         val = df_negative(word);
                         df_negative(word) = val + 1;
                         else    
                         df_negative(word) = 1;
+                        end
+                        
+                        if ~termCountInNeg_map.isKey(word)
+                            termCountInNeg_map(word)=1;
+                        else
+                            val = termCountInNeg_map(word);
+                            termCountInNeg_map(word)=val+1;
                         end
                     end
                 else
@@ -117,6 +138,8 @@ function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative] = indexe
              end   
     end    
     fclose(trainingFile);
+    resultTermCountInPos = termCountInPos_map;
+    resultTermCountInNeg = termCountInNeg_map;
     resultTFIDF = tf_cell;
     resultDFmap = df_map;
     resultDFpositive = df_positive;
