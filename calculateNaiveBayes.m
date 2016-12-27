@@ -4,7 +4,7 @@ function [ resultTable,accuracy ] = calculateNaiveBayes( )
 %(Pozitifte toplam kaç kelime var + Train edilen yani calculate IG'den dönen tabloda her biri farklı toplam kaç tane kelime var (500))  
 %testing.txt 1-219 arası pozitif yorum var, 220den 438e kadar negatif yorum
 resultTable=cell(1);
-probabilityTable = calculateProbabilities();
+[posProbMap,negProbMap] = calculateProbabilities();
 file = fopen('testing.txt');
 line = fgetl(file);
 line_count=1;
@@ -31,15 +31,12 @@ while ischar(line)
                 word = word(1:5);
             end
 
-            for i=1:length(probabilityTable)
-                if strcmp(word,char(probabilityTable(i,1)))
-                    tmpPos(word)=double(cell2mat(probabilityTable(i,2)));
-                    tmpNeg(word)=double(cell2mat(probabilityTable(i,3)));
-                    break;
-                else
-                    tmpPos(word)=1;
-                    tmpNeg(word)=1;
-                end
+            if posProbMap.isKey(word) || negProbMap.isKey(word)
+                tmpPos(word)=posProbMap(word);
+                tmpNeg(word)=negProbMap(word);
+            else
+                tmpPos(word)=1; %çarpma işlemi sonucu 0 olmasın diye 1 veriyoruz
+                tmpNeg(word)=1;
             end
      end
      
@@ -57,7 +54,7 @@ while ischar(line)
         
         if posResult > negResult
             accuracy_count=accuracy_count+1;
-            resultTable{line_count,1}=1;
+            resultTable{line_count,1}=1; %pozitif ise 1 negatif ise 0
         else
             resultTable{line_count,1}=0;
         end

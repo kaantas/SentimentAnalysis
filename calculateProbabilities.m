@@ -1,9 +1,10 @@
-function [ probabilityTable ] = calculateProbabilities( )
+function [ posProbMap,negProbMap ] = calculateProbabilities( )
 [ IGTable,weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, termCountInPos_map, termCountInNeg_map, pos_word_count, neg_word_count ] = calculateIG();
 featuresTable=IGTable;
+posProbMap = containers.Map('KeyType','char','ValueType','double');  
+negProbMap = containers.Map('KeyType','char','ValueType','double');
 for i=1:500
     feature=char(featuresTable(i,1));    
-    probabilityTable{i,1}=feature;
     if ~termCountInPos_map.isKey(feature)
         freqInPos = 0;
     else
@@ -18,8 +19,8 @@ for i=1:500
     
     positiveProb = double(double((freqInPos+1)/(pos_word_count+500)));
     negativeProb= double(double((freqInNeg+1)/(neg_word_count+500)));
-    probabilityTable{i,2}=positiveProb;
-    probabilityTable{i,3}=negativeProb;
+    posProbMap(char(feature))=positiveProb;
+    negProbMap(char(feature))=negativeProb;
 end
 
 end
