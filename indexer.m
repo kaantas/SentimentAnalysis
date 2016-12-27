@@ -2,8 +2,10 @@ function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTe
     trainingFile = fopen('training.txt','r');
     df_map = containers.Map('KeyType','char','ValueType','int32');  
     tf_map = containers.Map('KeyType','char','ValueType','any');
-    df_positive = containers.Map('KeyType','char','ValueType','int32');
-    df_negative = containers.Map('KeyType','char','ValueType','int32');
+    df_positive = containers.Map('KeyType','char','ValueType','int32'); %IG hesaplerken kullanýlacak pozitif file için df
+    df_negative = containers.Map('KeyType','char','ValueType','int32'); %IG hesaplerken kullanýlacak negatif file için df
+    %Probability hesaplerken kullanýlacak positive file içindeki bir
+    %kelimenin toplam kaç kere geçtiði
     termCountInPos_map = containers.Map('KeyType','char','ValueType','int32');
     termCountInNeg_map = containers.Map('KeyType','char','ValueType','int32');
     pos_word_count=0;
@@ -60,6 +62,9 @@ function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTe
                             df_positive(word) = 1;
                         end
                         
+                        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                        %bir kelimenin pozitif fileda toplam kaç kere
+                        %geçtiði
                         if ~termCountInPos_map.isKey(word)
                             termCountInPos_map(word)=1;
                         else
@@ -79,6 +84,9 @@ function [resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTe
                         df_negative(word) = 1;
                         end
                         
+                        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                        %bir kelimenin negatif fileda toplam kaç kere
+                        %geçtiði
                         if ~termCountInNeg_map.isKey(word)
                             termCountInNeg_map(word)=1;
                         else

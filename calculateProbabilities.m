@@ -1,7 +1,11 @@
 function [ posProbMap,negProbMap ] = calculateProbabilities( )
 [ IGTable,weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, termCountInPos_map, termCountInNeg_map, pos_word_count, neg_word_count ] = calculateIG();
 featuresTable=IGTable;
+%featurlarýn hem pozitif file hem de negatif filedaki Probabilityleri
+%hesaplanýyor
+%bir feature'ýn pozitif file'daki Probabilitysi = posProbMap'te tutuluyor
 posProbMap = containers.Map('KeyType','char','ValueType','double');  
+%bir feature'ýn negatif file'daki Probabilitysi = negProbMap'te tutuluyor
 negProbMap = containers.Map('KeyType','char','ValueType','double');
 for i=1:500
     feature=char(featuresTable(i,1));    

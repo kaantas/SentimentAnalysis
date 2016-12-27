@@ -31,9 +31,15 @@ while ischar(line)
                 word = word(1:5);
             end
 
+            %eðer test datasýndan aldýðýmýz bir yorum içinde geçen herhangi bir kelime bir feature'a eþitse
+            %o kelimenin pozitif ve negatif file'lar için olasýlýklarýný
+            %alýyoruz
             if posProbMap.isKey(word) || negProbMap.isKey(word)
                 tmpPos(word)=posProbMap(word);
                 tmpNeg(word)=negProbMap(word);
+            %eðer bu kelimenin bir feature karþýlýðý yok ise hem pozitif
+            %hem negatif olasýlýðýný 1 alýyoruz çünkü 0 alýrsak birazdan
+            %uygulayacaðýmýz çarpma iþleminde sonuçlar 0 gelmesin
             else
                 tmpPos(word)=1; %çarpma iþlemi sonucu 0 olmasýn diye 1 veriyoruz
                 tmpNeg(word)=1;
@@ -52,12 +58,17 @@ while ischar(line)
             negResult = negResult * tmpNeg(char(negKeys(1,a))); 
         end
         
+        %eðer test dosyasýndan aldýðýmýz bir yorum gerçekte pozitif ise ve
+        %þimdi Naive Bayes kullanarak ulaþtýðýmýz sonuç da pozitif ise accuracy arttýr
+        %o yorumun tahmin edilen classýný 1(pozitif) yaz
         if posResult > negResult
             accuracy_count=accuracy_count+1;
-            resultTable{line_count,1}=1; %pozitif ise 1 negatif ise 0
+            %tahmin edilen class pozitif ise 1, negatif ise 0
+            resultTable{line_count,1}=1;
         else
             resultTable{line_count,1}=0;
         end
+        
      else %negatif commentler için
         posKeys = tmpPos.keys; 
         posResult = 1;
