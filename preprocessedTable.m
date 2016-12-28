@@ -1,6 +1,4 @@
 function [ weightedTable ] = preprocessedTable(resultTFIDF)
-%[tfidfTable,x,y,z,w,q,m,n]=indexer();
-%[resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count] = tfIdfTermCount();
 weightedTable = resultTFIDF;
 
 %her bir kelimenin tf-idf deðerleri toplamý weightedTable'in 1024. sütununa

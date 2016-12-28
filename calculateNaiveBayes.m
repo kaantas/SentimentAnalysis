@@ -4,7 +4,6 @@ function [ resultTable,accuracy,fscore,confusionMatrix ] = calculateNaiveBayes(p
 %(Pozitifte toplam kaç kelime var + Train edilen yani calculate IG'den dönen tabloda her biri farklý toplam kaç tane kelime var (500))  
 %testing.txt 1-219 arasý pozitif yorum var, 220den 438e kadar negatif yorum
 resultTable=cell(1);
-%[posProbMap,negProbMap] = calculateProbabilities();
 file = fopen('testing.txt');
 line = fgetl(file);
 line_count=1;

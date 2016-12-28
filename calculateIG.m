@@ -8,8 +8,6 @@ function [ IGTable ] = calculateIG(weightedTable, resultDFmap, resultDFpositive,
 %P(negative|word)
 %P(negative|~word)
 IGTable = cell(1);
-%[weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count] = preprocessedTable();
-%[resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative,x,y,z,w] = indexer();
 Ppositive = 1/2;
 Pnegative = 1/2;
 

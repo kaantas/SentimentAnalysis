@@ -1,8 +1,8 @@
 function [] = createTestingSet()
 file_positive = fopen('positive.txt','r+');
 testingSet = fopen('testing.txt','w');
-
-line = fgetl(file_positive); %her line bir yorum
+%her line bir yorum
+line = fgetl(file_positive); 
 lineCount=0;
 while ischar(line)
     if lineCount < 511
@@ -22,8 +22,8 @@ while ischar(line)
 end
 fclose(file_positive);
 file_negative = fopen('negative.txt','r+');
-
-line = fgetl(file_negative); %her line bir yorum
+%her line bir yorum
+line = fgetl(file_negative); 
 lineCount=0;
 while ischar(line)
     if lineCount < 511

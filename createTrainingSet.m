@@ -2,8 +2,8 @@ function [] = createTrainingSet ()
 file_positive = fopen('positive.txt','r+');
 file_negative = fopen('negative.txt','r+');
 trainingSet = fopen('training.txt','w');
-
-line = fgetl(file_positive); %her line bir yorum
+%her line bir yorum
+line = fgetl(file_positive); 
 lineCount=0;
 while ischar(line)
     if lineCount < 510
