@@ -25,4 +25,4 @@ createTestingSet();
 
 %testing.txt dosyasýndan alýnan yorumlar ile Naive Bayes ile oluþturduðumuz
 %classification methodu test ediliyor ve accuracy deðeri hesaplanýyor.
-[resultTable, accuracy] = calculateNaiveBayes(posProbMap, negProbMap);
+[resultTable, accuracy, fscore, confusionMatrix] = calculateNaiveBayes(posProbMap, negProbMap);

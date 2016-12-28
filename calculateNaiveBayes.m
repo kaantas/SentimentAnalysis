@@ -1,4 +1,4 @@
-function [ resultTable,accuracy ] = calculateNaiveBayes(posProbMap, negProbMap)
+function [ resultTable,accuracy,fscore,confusionMatrix ] = calculateNaiveBayes(posProbMap, negProbMap)
 %Naive Bayes Classifier
 %P(word | positive) = (word kelimesi positive yorumlarda toplam kaç kere geçmiþ + 1)/
 %(Pozitifte toplam kaç kelime var + Train edilen yani calculate IG'den dönen tabloda her biri farklý toplam kaç tane kelime var (500))  
@@ -9,6 +9,14 @@ file = fopen('testing.txt');
 line = fgetl(file);
 line_count=1;
 accuracy_count=0;
+%tp (true positive) = gerçekte pozitif ve pozitif tahmin edilmiþ
+tp=0;
+%tn (true negative) = gerçekte negatif ve negatif tahmin edilmiþ
+tn=0;
+%fp (false positive) = gerçekte negatif ama pozitif tahmin edilmiþ
+fp=0;
+%fn (false negative) = gerçekte pozitif ama negatif tahmin edilmiþ
+fn=0;
 while ischar(line)
      %harf olmayan karakterleri at 
      %hepsini küçük harf haline getir
@@ -63,9 +71,11 @@ while ischar(line)
         %o yorumun tahmin edilen classýný 1(pozitif) yaz
         if posResult > negResult
             accuracy_count=accuracy_count+1;
+            tp=tp+1;
             %tahmin edilen class pozitif ise 1, negatif ise 0
             resultTable{line_count,1}=1;
         else
+            fn=fn+1;
             resultTable{line_count,1}=0;
         end
         
@@ -83,8 +93,10 @@ while ischar(line)
         
         if negResult > posResult
             accuracy_count=accuracy_count+1;
+            tn=tn+1;
             resultTable{line_count,1}=0;
         else
+            fp=fp+1;
             resultTable{line_count,1}=1;
         end
      end
@@ -94,5 +106,17 @@ while ischar(line)
 end
 fclose(file);
 accuracy = double((accuracy_count*100)/line_count);
+precision = double(tp/(tp+fp));
+recall = double(tp/(tp+fn));
+fscore = double((2*(precision*recall))/(precision+recall));
+confusionMatrix=cell(1);
+confusionMatrix{2,1}='Actual Positive';
+confusionMatrix{3,1}='Actual Negative';
+confusionMatrix{1,2}='Predicted Positive';
+confusionMatrix{1,3}='Predicted Negative';
+confusionMatrix{2,2}=tp;
+confusionMatrix{2,3}=fn;
+confusionMatrix{3,2}=fp;
+confusionMatrix{3,3}=tn;
 end
 
