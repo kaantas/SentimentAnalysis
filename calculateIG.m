@@ -1,4 +1,4 @@
-function [ IGTable,weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count ] = calculateIG( )
+function [ IGTable ] = calculateIG(weightedTable, resultDFmap, resultDFpositive, resultDFnegative)
 %P(positive)=1/2
 %P(negative)=1/2
 %P(word)=>from function
@@ -8,7 +8,7 @@ function [ IGTable,weightedTable,resultTFIDF, resultDFmap, resultDFpositive, res
 %P(negative|word)
 %P(negative|~word)
 IGTable = cell(1);
-[weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count] = preprocessedTable();
+%[weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count] = preprocessedTable();
 %[resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative,x,y,z,w] = indexer();
 Ppositive = 1/2;
 Pnegative = 1/2;

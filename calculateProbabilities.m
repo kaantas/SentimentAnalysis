@@ -1,5 +1,7 @@
-function [ posProbMap,negProbMap ] = calculateProbabilities( )
-[ IGTable,weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, termCountInPos_map, termCountInNeg_map, pos_word_count, neg_word_count ] = calculateIG();
+function [ posProbMap,negProbMap ] = calculateProbabilities(IGTable, resultTermCountInPos, resultTermCountInNeg, pos_word_count, neg_word_count)
+%[ IGTable,weightedTable,resultTFIDF, resultDFmap, resultDFpositive, resultDFnegative, termCountInPos_map, termCountInNeg_map, pos_word_count, neg_word_count ] = calculateIG();
+termCountInPos_map=resultTermCountInPos;
+termCountInNeg_map=resultTermCountInNeg;
 featuresTable=IGTable;
 %featurlarýn hem pozitif file hem de negatif filedaki Probabilityleri
 %hesaplanýyor
