@@ -8,15 +8,15 @@ Text preprocessing consists of three steps.
 
 A.1.	Tokenization
 
-			The first data given is the type of two separate text files. These text files are of two types, positive and negative. There are 730 comments in each text file. At this stage, each sentence was separated into words by using each comment. These words are expressed as tokens. 
+The first data given is the type of two separate text files. These text files are of two types, positive and negative. There are 730 comments in each text file. At this stage, each sentence was separated into words by using each comment. These words are expressed as tokens. 
 
 A.2.	Stop-Word Removal
 
-			Stop-words are words that pass through almost every sentence and are not worthy of classification. Stop-words are usually shorter than 3 letters in Turkish. At this stage, words shorter than 3 letters in length are not considered. 
+Stop-words are words that pass through almost every sentence and are not worthy of classification. Stop-words are usually shorter than 3 letters in Turkish. At this stage, words shorter than 3 letters in length are not considered. 
 
 A.3.	Stemming
 
-			Stemming is the process of reducing inflected (or sometimes derived) words to their word stem, base or root form in linguistic morphology and information retrieval [5]. There are many methods for stemming. We used fixed-prefix as the stemming method. When using fixed-prefix we only got the first 5 letters of words that are more than 5 letters because words are generally 5 letters in Turkish. The shorter words remain the same.
+Stemming is the process of reducing inflected (or sometimes derived) words to their word stem, base or root form in linguistic morphology and information retrieval [5]. There are many methods for stemming. We used fixed-prefix as the stemming method. When using fixed-prefix we only got the first 5 letters of words that are more than 5 letters because words are generally 5 letters in Turkish. The shorter words remain the same.
 
 B.	Text Transformation
 
@@ -60,7 +60,7 @@ Accuracy = (TP + TN) / (TP + TN + FP + FN)
 F-Score is the harmonic mean of precision and recall. This gives a score that is a balance between precision and recall [11].
 F-Score = (2 * Precision * Recall) / (Precision + Recall)
 
-	CONCLUSION
+CONCLUSION
 
 In sentiment analysis, it is difficult for human to predict the movie review. To resolve this, the document sentiment classification is used in the existing system. It determines whether an opinion document (movie comment) is positive or negative sentiment. 
 In this sentiment analysis project, we use different methods at each step. Finally, we achieve accuracy of 83.37% and F-Score of 83.18%. These values are acceptable for sentiment analysis classification. 
